@@ -1,0 +1,101 @@
+<?php
+
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\backend\admins\auth\AdminAuthController;
+use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
+use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
+use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateCategoryController;
+use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateSubCategoryController;
+
+Route::get('/', function () {
+    return view('backend.admins.pages.dashboard');
+});
+
+
+
+
+Route::group(
+    ['prefix' => 'admins', 'as' => 'admins.'],
+    function () {
+        Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+        Route::post('login', [AdminAuthController::class, 'login'])->name('login.submit');
+        Route::group(['middleware' => 'auth:admin'], function () {
+            Route::get('dashboard', function () {
+                return view('backend.admins.pages.dashboard');
+            })->name('dashboard');
+
+            Route::get('logout', [AdminAuthController::class, 'logout'])->name('logout');
+
+
+            Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings');
+            Route::post('/settings/update', [AdminSettingController::class, 'update'])->name('settings.update');
+
+
+            // Affiliate Categories Routes
+            Route::get('/affiliate-categories', [AdminAffiliateCategoryController::class, 'index'])->name('affiliate-categories.index');
+
+            Route::get('/affiliate-categories/create', [AdminAffiliateCategoryController::class, 'create'])->name('affiliate-categories.create');
+
+            Route::post('/affiliate-categories/store', [AdminAffiliateCategoryController::class, 'store'])->name('affiliate-categories.store');
+
+            Route::get('/affiliate-categories/{id}/edit', [AdminAffiliateCategoryController::class, 'edit'])->name('affiliate-categories.edit');
+
+            Route::post('/affiliate-categories/{id}/update', [AdminAffiliateCategoryController::class, 'update'])->name('affiliate-categories.update');
+
+            Route::get('/affiliate-categories/{id}/delete', [AdminAffiliateCategoryController::class, 'destroy'])->name('affiliate-categories.delete');
+
+            // Affiliate Sub Categories Routes
+    
+            Route::get('/affiliate-subcategories', [AdminAffiliateSubCategoryController::class, 'index'])
+                ->name('affiliate-subcategories.index');
+
+            Route::get('/affiliate-subcategories/create', [AdminAffiliateSubCategoryController::class, 'create'])
+                ->name('affiliate-subcategories.create');
+
+            Route::post('/affiliate-subcategories/store', [AdminAffiliateSubCategoryController::class, 'store'])
+                ->name('affiliate-subcategories.store');
+
+            Route::get('/affiliate-subcategories/{id}/edit', [AdminAffiliateSubCategoryController::class, 'edit'])
+                ->name('affiliate-subcategories.edit');
+
+            Route::post('/affiliate-subcategories/{id}/update', [AdminAffiliateSubCategoryController::class, 'update'])
+                ->name('affiliate-subcategories.update');
+
+            Route::get('/affiliate-subcategories/{id}/delete', [AdminAffiliateSubCategoryController::class, 'delete'])
+                ->name('affiliate-subcategories.delete');
+
+
+            // Affiliate Products Routes
+            Route::get('/affiliate-products', [AdminAffiliateProductController::class, 'index'])
+                ->name('affiliate-products.index');
+            Route::get('/affiliate-products/create', [AdminAffiliateProductController::class, 'create'])
+                ->name('affiliate-products.create');
+            Route::post('/affiliate-products/store', [AdminAffiliateProductController::class, 'store'])
+                ->name('affiliate-products.store');
+            Route::get('/affiliate-products/{id}/edit', [AdminAffiliateProductController::class, 'edit'])
+                ->name('affiliate-products.edit');
+            Route::post('/affiliate-products/{id}/update', [AdminAffiliateProductController::class, 'update'])
+                ->name('affiliate-products.update');
+            Route::get('/affiliate-products/{id}/delete', [AdminAffiliateProductController::class, 'destroy'])
+                ->name('affiliate-products.delete');
+
+            Route::get('/get-subcategories/{category_id}', function ($category_id) {
+                return \App\Models\AffiliateSubCategory::where('category_id', $category_id)
+                    ->where('status', 'active')
+                    ->get();
+            })->name('get-subcategories');
+
+            Route::get('/affiliate-products/{id}/details', [AdminAffiliateProductController::class, 'details'])
+                ->name('affiliate-products.details');
+
+            Route::post('/affiliate-products/{id}/details/update', [AdminAffiliateProductController::class, 'detailsUpdate'])
+                ->name('affiliate-products.details.update');
+
+
+
+        });
+
+    }
+
+);
