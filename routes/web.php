@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateSubCategoryController;
+use App\Http\Controllers\backend\admins\dashboard\AdminProductsEarningLevelController;
 
 Route::get('/', function () {
     return view('backend.admins.pages.dashboard');
@@ -91,6 +92,23 @@ Route::group(
 
             Route::post('/affiliate-products/{id}/details/update', [AdminAffiliateProductController::class, 'detailsUpdate'])
                 ->name('affiliate-products.details.update');
+
+
+            // Earning Levels
+            Route::get('/affiliate-products/{id}/earning-levels', [AdminProductsEarningLevelController::class, 'index'])
+                ->name('earning-levels.index');
+
+            Route::post('/affiliate-products/{id}/earning-levels/store', [AdminProductsEarningLevelController::class, 'store'])
+                ->name('earning-levels.store');
+
+            Route::get('/affiliate-products/earning-levels/{level_id}/edit', [AdminProductsEarningLevelController::class, 'edit'])
+                ->name('earning-levels.edit');
+
+            Route::post('/affiliate-products/earning-levels/{level_id}/update', [AdminProductsEarningLevelController::class, 'update'])
+                ->name('earning-levels.update');
+
+            Route::delete('/affiliate-products/earning-levels/{level_id}/delete', [AdminProductsEarningLevelController::class, 'delete'])
+                ->name('earning-levels.delete');
 
 
 

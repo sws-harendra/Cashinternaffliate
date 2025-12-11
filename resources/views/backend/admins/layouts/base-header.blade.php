@@ -16,7 +16,7 @@
                           </div>
                       </div> --}}
                       <a href="{{ route('admins.dashboard') }}">
-                          <img class="img-fluid" src="{{ asset('backend/assets/images/logo.png') }}" alt="Theme-Logo" />
+                          <img class="img-fluid rounded-full" style="height: 50px; width: 50px;" src="{{ asset(config_value('company_logo')) }}" alt="Theme-Logo" />
                       </a>
                       <a class="mobile-options waves-effect waves-light">
                           <i class="ti-more"></i>

@@ -115,6 +115,10 @@
                                                         class="btn btn-info btn-sm">
                                                         Manage Details
                                                     </a>
+                                                    <a href="{{ route('admins.earning-levels.index', $p->id) }}"
+                                                        class="btn btn-primary btn-sm">
+                                                        Earning Levels
+                                                    </a>
 
 
                                                     <a onclick="return confirm('Delete this product?')"

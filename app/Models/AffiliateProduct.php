@@ -69,5 +69,11 @@ class AffiliateProduct extends Model
         return $this->hasMany(ProductTrainingVideo::class, 'affiliate_product_id');
     }
 
+    public function earningLevels()
+    {
+        return $this->hasMany(ProductEarningLevel::class, 'affiliate_product_id');
+    }
+
+
 
 }
