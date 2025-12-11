@@ -98,6 +98,12 @@
                                             <option value="">Select Subcategory</option>
                                         </select>
                                     </div>
+                                    <div class="col-md-6">
+                                        <label>Expiry Days</label>
+                                        <input type="number" name="expiry_days" class="form-control" value="30"
+                                            required>
+                                    </div>
+
 
 
                                     <div class="col-md-12">
@@ -163,21 +169,20 @@
         });
     </script>
     <script>
-document.querySelector("select[name='category_id']").addEventListener("change", function () {
+        document.querySelector("select[name='category_id']").addEventListener("change", function() {
 
-    let categoryId = this.value;
+            let categoryId = this.value;
 
-    fetch(`/admins/get-subcategories/${categoryId}`)
-        .then(response => response.json())
-        .then(data => {
-            let subcat = document.getElementById("subcategory");
-            subcat.innerHTML = `<option value="">Select Subcategory</option>`;
+            fetch(`/admins/get-subcategories/${categoryId}`)
+                .then(response => response.json())
+                .then(data => {
+                    let subcat = document.getElementById("subcategory");
+                    subcat.innerHTML = `<option value="">Select Subcategory</option>`;
 
-            data.forEach(item => {
-                subcat.innerHTML += `<option value="${item.id}">${item.name}</option>`;
-            });
+                    data.forEach(item => {
+                        subcat.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+                    });
+                });
         });
-});
-</script>
-
+    </script>
 @endsection

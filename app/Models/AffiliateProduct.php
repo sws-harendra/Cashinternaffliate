@@ -21,6 +21,7 @@ class AffiliateProduct extends Model
         'status',
         'category_id',
         'subcategory_id',
+        'expiry_days',
     ];
 
     public function category()
@@ -73,6 +74,13 @@ class AffiliateProduct extends Model
     {
         return $this->hasMany(ProductEarningLevel::class, 'affiliate_product_id');
     }
+
+
+    public function clicks()
+    {
+        return $this->hasMany(ProductClick::class, 'affiliate_product_id');
+    }
+
 
 
 

@@ -109,6 +109,13 @@
                                         </select>
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <label>Expiry Days</label>
+                                        <input type="number" name="expiry_days" class="form-control"
+                                            value="{{ $product->expiry_days ?? 30 }}" required>
+                                    </div>
+
+
 
                                     <div class="col-md-12">
                                         <label>Description</label>

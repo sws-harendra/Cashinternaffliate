@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\backend\admins\auth\AdminAuthController;
 use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
@@ -14,6 +15,7 @@ Route::get('/', function () {
 });
 
 
+Route::get('/c/{product}/{user}', [TrackingController::class, 'redirect'])->name('tracking.redirect');
 
 
 Route::group(

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->boolean('is_recommended')->default(false);
             $table->string('status')->default('active');
             $table->unsignedBigInteger('category_id');
+            $table->integer('expiry_days')->default(30);
             $table->unsignedBigInteger('subcategory_id')->nullable();
             $table->timestamps();
         });

@@ -38,6 +38,7 @@ class AdminAffiliateProductController extends Controller
             'category_id' => 'required|exists:affiliate_categories,id',
             'product_image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
             'banner' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'expiry_days' => 'required|integer|min:1',
         ]);
 
         // Upload product image
@@ -71,6 +72,7 @@ class AdminAffiliateProductController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
+            'expiry_days' => $request->expiry_days,
         ]);
 
         return redirect()->route('admins.affiliate-products.index')
@@ -97,7 +99,9 @@ class AdminAffiliateProductController extends Controller
             'category_id' => 'required|exists:affiliate_categories,id',
             'product_image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
             'banner' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'expiry_days' => 'required|integer|min:1',
         ]);
+        // dd($request->all());
 
         $productImage = $product->product_image;
         if ($request->hasFile('product_image')) {
@@ -134,6 +138,7 @@ class AdminAffiliateProductController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
+            'expiry_days' => $request->expiry_days,
         ]);
 
         return redirect()->route('admins.affiliate-products.index')

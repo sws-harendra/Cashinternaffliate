@@ -78,7 +78,7 @@ class UserAuthController extends Controller
         $user = User::firstOrCreate(
             ['phone' => $request->phone],
             [
-                'uuid' => Str::uuid(),
+                'uuid' => substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(4))), 0, 5),
                 'name' => null,
                 'referral_code' => strtoupper(Str::random(8)),
                 'referred_by' => $request->referred_by ?? null,
