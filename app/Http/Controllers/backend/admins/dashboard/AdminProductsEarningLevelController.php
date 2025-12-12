@@ -12,7 +12,7 @@ class AdminProductsEarningLevelController extends Controller
     public function index($productId)
     {
         $product = AffiliateProduct::findOrFail($productId);
-        $levels = ProductEarningLevel::where('affiliate_product_id', $productId)->get();
+        $levels = ProductEarningLevel::where('affiliate_product_id', $productId)->orderBy('level_order', 'ASC')->get();
 
         return view('backend.admins.pages.earning_levels.index', compact('product', 'levels'));
     }
@@ -22,18 +22,30 @@ class AdminProductsEarningLevelController extends Controller
         $request->validate([
             'level_name' => 'required',
             'level_description' => 'required',
-            'amount' => 'required|numeric'
+            'amount' => 'required|numeric',
+            'level_order' => 'required|integer|min:1'
         ]);
+
+        // Check duplicate level_order for same product
+        $exists = ProductEarningLevel::where('affiliate_product_id', $productId)
+            ->where('level_order', $request->level_order)
+            ->exists();
+
+        if ($exists) {
+            return back()->with('error', 'This Level Order is already used for this product.');
+        }
 
         ProductEarningLevel::create([
             'affiliate_product_id' => $productId,
             'level_name' => $request->level_name,
             'level_description' => $request->level_description,
+            'level_order' => $request->level_order,
             'amount' => $request->amount
         ]);
 
         return back()->with('success', 'Earning Level Added Successfully!');
     }
+
 
 
     public function edit($levelId)
@@ -47,14 +59,27 @@ class AdminProductsEarningLevelController extends Controller
         $request->validate([
             'level_name' => 'required',
             'level_description' => 'required',
-            'amount' => 'required|numeric'
+            'amount' => 'required|numeric',
+            'level_order' => 'required|integer|min:1'
         ]);
 
         $level = ProductEarningLevel::findOrFail($levelId);
 
+
+        // Prevent duplicate order for same product
+        $exists = ProductEarningLevel::where('affiliate_product_id', $level->affiliate_product_id)
+            ->where('level_order', $request->level_order)
+            ->where('id', '!=', $level->id)
+            ->exists();
+
+        if ($exists) {
+            return back()->with('error', 'This Level Order is already assigned to another level for this product.');
+        }
+
         $level->update([
             'level_name' => $request->level_name,
             'level_description' => $request->level_description,
+            'level_order' => $request->level_order,
             'amount' => $request->amount
         ]);
 
@@ -62,6 +87,7 @@ class AdminProductsEarningLevelController extends Controller
             ->route('admins.earning-levels.index', $level->affiliate_product_id)
             ->with('success', 'Earning Level Updated Successfully!');
     }
+
 
 
     public function delete($levelId)

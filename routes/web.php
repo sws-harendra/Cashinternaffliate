@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\backend\admins\auth\AdminAuthController;
+use App\Http\Controllers\backend\admins\dashboard\AdminClickController;
 use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateCategoryController;
@@ -111,6 +112,25 @@ Route::group(
 
             Route::delete('/affiliate-products/earning-levels/{level_id}/delete', [AdminProductsEarningLevelController::class, 'delete'])
                 ->name('earning-levels.delete');
+
+            Route::prefix('affiliate')->group(function () {
+
+                Route::get('/clicks', [AdminClickController::class, 'index'])
+                    ->name('affiliate.clicks');
+
+                Route::get('/clicks/{id}/convert', [AdminClickController::class, 'convertPage'])
+                    ->name('affiliate.clicks.convert');
+
+                // Level complete (hold money)
+                Route::post('/clicks/{id}/level-complete', [AdminClickController::class, 'completeLevel'])
+                    ->name('affiliate.clicks.level.complete');
+
+                // Final approval
+                Route::post('/clicks/{id}/final-approve', [AdminClickController::class, 'finalApprove'])
+                    ->name('affiliate.clicks.final.approve');
+            });
+
+
 
 
 

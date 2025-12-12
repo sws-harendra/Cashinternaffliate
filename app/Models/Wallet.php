@@ -17,4 +17,9 @@ class Wallet extends Model
         'refer_balance',
         'status',
     ];
+
+     public function transactions()
+    {
+        return $this->hasMany(WalletTransaction::class);
+    }
 }

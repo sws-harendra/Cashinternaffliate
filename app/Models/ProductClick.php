@@ -28,6 +28,34 @@ class ProductClick extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'uuid');
     }
+
+
+    public function isExpired()
+    {
+        if (!$this->product || !$this->product->expiry_days || !$this->clicked_at) {
+            return false;
+        }
+
+        $expiry = \Carbon\Carbon::parse($this->clicked_at)->addDays($this->product->expiry_days);
+
+        return now()->greaterThan($expiry);
+    }
+
+    public function expiryDate()
+    {
+        if (!$this->clicked_at) {
+            return null;
+        }
+
+        return \Carbon\Carbon::parse($this->clicked_at)->addDays($this->product->expiry_days);
+    }
+
+
+    protected $casts = [
+        'clicked_at' => 'datetime',
+    ];
+
+
 }

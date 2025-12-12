@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('ip')->nullable();
             $table->text('user_agent')->nullable();
             $table->string('referrer')->nullable();
-            $table->integer('status')->default(0);  // 0 = pending , 1 = progress , 3 = completed
+            $table->integer('status')->default(0);  // 0 = pending , 1 = progress , 3 = completed, 4 = expired
             $table->boolean('is_converted')->default(false);
             $table->timestamp('clicked_at')->nullable();
             $table->timestamp('converted_at')->nullable();

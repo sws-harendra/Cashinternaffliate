@@ -4,22 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('products_earning_levels', function (Blueprint $table) {
+        Schema::create('user_earnings', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id')->nullable();
             $table->unsignedBigInteger('affiliate_product_id');
-            $table->string('level_name');
-            $table->string('level_description');
-            $table->integer('level_order')->default(1);
+            $table->unsignedBigInteger('click_id'); // or click reference
+            $table->unsignedBigInteger('earning_level_id')->nullable();
             $table->decimal('amount', 10, 2);
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
-            $table->foreign('affiliate_product_id')->references('id')->on('affiliate_products')->onDelete('cascade');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products_earning_levels');
+        Schema::dropIfExists('user_earnings');
     }
 };
