@@ -64,6 +64,27 @@
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
+              <li  class="{{ request()->routeIs('admins.training-category.*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.training-category.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Training Categories</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
+              <li  class="{{ request()->routeIs('admins.training-subcategory.*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.training-subcategory.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Training SubCategories</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
+              <li  class="{{ request()->routeIs('admins.training-videos.*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.training-videos.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-video-clapper"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Training Videos</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
 
 
               {{-- <li class="pcoded-hasmenu">

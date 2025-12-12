@@ -6,8 +6,11 @@ use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\backend\admins\auth\AdminAuthController;
 use App\Http\Controllers\backend\admins\dashboard\AdminClickController;
 use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
+use App\Http\Controllers\backend\admins\dashboard\AdminTrainingVideoController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
+use App\Http\Controllers\backend\admins\dashboard\AdminTrainingCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateCategoryController;
+use App\Http\Controllers\backend\admins\dashboard\AdminTrainingSubCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateSubCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminProductsEarningLevelController;
 
@@ -128,6 +131,60 @@ Route::group(
                 // Final approval
                 Route::post('/clicks/{id}/final-approve', [AdminClickController::class, 'finalApprove'])
                     ->name('affiliate.clicks.final.approve');
+            });
+
+
+
+            // Training Category CRUD
+            Route::get('training-category', [AdminTrainingCategoryController::class, 'index'])->name('training-category.index');
+            Route::get('training-category/create', [AdminTrainingCategoryController::class, 'create'])->name('training-category.create');
+            Route::post('training-category/store', [AdminTrainingCategoryController::class, 'store'])->name('training-category.store');
+            Route::get('training-category/{id}/edit', [AdminTrainingCategoryController::class, 'edit'])->name('training-category.edit');
+            Route::post('training-category/{id}/update', [AdminTrainingCategoryController::class, 'update'])->name('training-category.update');
+            Route::get('training-category/{id}/delete', [AdminTrainingCategoryController::class, 'delete'])->name('training-category.delete');
+
+
+            Route::prefix('training-subcategory')->group(function () {
+
+                Route::get('/', [AdminTrainingSubCategoryController::class, 'index'])
+                    ->name('training-subcategory.index');
+
+                Route::get('/create', [AdminTrainingSubCategoryController::class, 'create'])
+                    ->name('training-subcategory.create');
+
+                Route::post('/store', [AdminTrainingSubCategoryController::class, 'store'])
+                    ->name('training-subcategory.store');
+
+                Route::get('/edit/{id}', [AdminTrainingSubCategoryController::class, 'edit'])
+                    ->name('training-subcategory.edit');
+
+                Route::post('/update/{id}', [AdminTrainingSubCategoryController::class, 'update'])
+                    ->name('training-subcategory.update');
+
+                Route::get('/delete/{id}', [AdminTrainingSubCategoryController::class, 'delete'])
+                    ->name('training-subcategory.delete');
+            });
+
+
+            Route::prefix('training-videos')->group(function () {
+
+                Route::get('/', [AdminTrainingVideoController::class, 'index'])
+                    ->name('training-videos.index');
+
+                Route::get('/create', [AdminTrainingVideoController::class, 'create'])
+                    ->name('training-videos.create');
+
+                Route::post('/store', [AdminTrainingVideoController::class, 'store'])
+                    ->name('training-videos.store');
+
+                Route::get('/edit/{id}', [AdminTrainingVideoController::class, 'edit'])
+                    ->name('training-videos.edit');
+
+                Route::post('/update/{id}', [AdminTrainingVideoController::class, 'update'])
+                    ->name('training-videos.update');
+
+                Route::get('/delete/{id}', [AdminTrainingVideoController::class, 'delete'])
+                    ->name('training-videos.delete');
             });
 
 
