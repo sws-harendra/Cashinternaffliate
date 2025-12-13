@@ -21,4 +21,9 @@ class AffiliateSubCategory extends Model
     {
         return $this->belongsTo(AffiliateCategory::class, 'category_id');
     }
+
+    public function products()
+    {
+        return $this->hasMany(AffiliateProduct::class, 'subcategory_id');
+    }
 }

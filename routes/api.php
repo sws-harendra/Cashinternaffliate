@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\api\UserKycController;
+use App\Http\Controllers\api\UserHomeController;
+use App\Http\Controllers\api\AffiliateController;
 use App\Http\Controllers\api\AppConfigController;
 use App\Http\Controllers\api\UserWalletController;
 use App\Http\Controllers\api\UserProfileController;
@@ -70,5 +72,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/advertiser-card', [AdvertiserCardController::class, 'store']);
 
     Route::post('/user/activity',[UserActivityController::class, 'store']);
+
+
+    Route::get('/home/banner', [UserHomeController::class, 'homebanner']);
+    Route::get('/home/affiliates/category', [UserHomeController::class, 'affiliatesCategory']);
+    Route::get('/home/top/products', [UserHomeController::class, 'topProducts']);
+
+
+    Route::get(  '/category/{categoryId}/products',[AffiliateController::class, 'categoryProducts']);
 
 });

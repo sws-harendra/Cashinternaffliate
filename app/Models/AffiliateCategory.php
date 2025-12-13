@@ -15,4 +15,9 @@ class AffiliateCategory extends Model
         'banner',
         'status',
     ];
+
+     public function subcategories()
+    {
+        return $this->hasMany(AffiliateSubcategory::class, 'category_id');
+    }
 }
