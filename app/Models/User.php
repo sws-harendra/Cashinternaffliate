@@ -73,4 +73,11 @@ class User extends Authenticatable
         });
     }
 
+
+    public function activities()
+    {
+        return $this->hasMany(UserActivity::class, 'user_id', 'uuid');
+    }
+
+
 }

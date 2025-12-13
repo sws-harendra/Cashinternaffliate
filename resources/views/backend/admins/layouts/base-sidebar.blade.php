@@ -29,69 +29,98 @@
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.settings') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('admins.settings') ? 'active' : '' }}">
                   <a href="{{ route('admins.settings') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-settings"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Settings</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.affiliate-categories.*') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('admins.affiliate-categories.*') ? 'active' : '' }}">
                   <a href="{{ route('admins.affiliate-categories.index') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Affiliate Categories</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.affiliate-subcategories.*') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('admins.affiliate-subcategories.*') ? 'active' : '' }}">
                   <a href="{{ route('admins.affiliate-subcategories.index') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Affiliate Sub Categories</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.affiliate-products.*') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('admins.affiliate-products.*') ? 'active' : '' }}">
                   <a href="{{ route('admins.affiliate-products.index') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Affiliate Products</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.home-banner.*') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('admins.home-banner.*') ? 'active' : '' }}">
                   <a href="{{ route('admins.home-banner.index') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-image"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Home Banner</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.affiliate.clicks') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('admins.affiliate.clicks') ? 'active' : '' }}">
                   <a href="{{ route('admins.affiliate.clicks') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Affiliate Clicks</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.training-category.*') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('admins.training-category.*') ? 'active' : '' }}">
                   <a href="{{ route('admins.training-category.index') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Training Categories</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.training-subcategory.*') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('admins.training-subcategory.*') ? 'active' : '' }}">
                   <a href="{{ route('admins.training-subcategory.index') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Training SubCategories</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.training-videos.*') ? 'active' : '' }}">
+              <li class="{{ request()->routeIs('admins.training-videos.*') ? 'active' : '' }}">
                   <a href="{{ route('admins.training-videos.index') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-video-clapper"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Training Videos</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
+              <li class="{{ request()->routeIs('admins.payment.methods') ? 'active' : '' }}">
+                  <a href="{{ route('admins.payment.methods') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-money"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Payment Methods</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('admins.withdraw.index') ? 'active' : '' }}">
+                  <a href="{{ route('admins.withdraw.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-money"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Withdraw</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('admins.kyc*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.kyc.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-money"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">User Kyc</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
+
+              <li class="{{ request()->routeIs('admins.user.activities') ? 'active' : '' }}">
+                  <a href="{{ route('admins.user.activities') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">User Activity</span>
+                  </a>
+              </li>
+
 
 
               {{-- <li class="pcoded-hasmenu">
@@ -176,8 +205,8 @@
                   </ul>
               </li> --}}
           </ul>
-       
 
-         
+
+
       </div>
   </nav>

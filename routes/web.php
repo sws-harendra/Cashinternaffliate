@@ -4,9 +4,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\backend\admins\auth\AdminAuthController;
+use App\Http\Controllers\backend\admins\dashboard\AdminKycController;
 use App\Http\Controllers\backend\admins\dashboard\AdminClickController;
 use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
+use App\Http\Controllers\backend\admins\dashboard\AdminWithdrawController;
 use App\Http\Controllers\backend\admins\dashboard\AdminHomeBannerController;
+use App\Http\Controllers\backend\admins\dashboard\AdminUserActivityController;
+use App\Http\Controllers\backend\admins\dashboard\AdminPaymentMethodController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingVideoController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingCategoryController;
@@ -211,6 +215,34 @@ Route::group(
             });
 
 
+            Route::get('/payment-methods', [AdminPaymentMethodController::class, 'index'])->name('payment.methods');
+
+            Route::post('/payment-methods/{id}/approve', [AdminPaymentMethodController::class, 'approve'])->name('payment.methods.approve');
+
+            Route::post('/payment-methods/{id}/reject', [AdminPaymentMethodController::class, 'reject'])->name('payment.methods.reject');
+
+
+            Route::prefix('withdraws')->group(function () {
+
+                Route::get('/', [AdminWithdrawController::class, 'index'])
+                    ->name('withdraw.index');
+
+                Route::post('{id}/approve', [AdminWithdrawController::class, 'approve'])
+                    ->name('withdraw.approve');
+
+                Route::post('{id}/reject', [AdminWithdrawController::class, 'reject'])
+                    ->name('withdraw.reject');
+
+            });
+
+
+            Route::get('/kyc', [AdminKycController::class, 'index'])->name('kyc.index');
+            Route::get('/kyc/{id}', [AdminKycController::class, 'show'])->name('kyc.show');
+            Route::post('/kyc/{id}/approve', [AdminKycController::class, 'approve'])->name('kyc.approve');
+            Route::post('/kyc/{id}/reject', [AdminKycController::class, 'reject'])->name('kyc.reject');
+
+
+            Route::get('/user-activities', [AdminUserActivityController::class, 'index'])->name('user.activities');
 
 
 
