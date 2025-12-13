@@ -6,6 +6,7 @@ use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\backend\admins\auth\AdminAuthController;
 use App\Http\Controllers\backend\admins\dashboard\AdminClickController;
 use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
+use App\Http\Controllers\backend\admins\dashboard\AdminHomeBannerController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingVideoController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingCategoryController;
@@ -185,6 +186,28 @@ Route::group(
 
                 Route::get('/delete/{id}', [AdminTrainingVideoController::class, 'delete'])
                     ->name('training-videos.delete');
+            });
+
+
+            Route::prefix('home-banner')->group(function () {
+
+                Route::get('/', [AdminHomeBannerController::class, 'index'])
+                    ->name('home-banner.index');
+
+                Route::get('/create', [AdminHomeBannerController::class, 'create'])
+                    ->name('home-banner.create');
+
+                Route::post('/store', [AdminHomeBannerController::class, 'store'])
+                    ->name('home-banner.store');
+
+                Route::get('/edit/{id}', [AdminHomeBannerController::class, 'edit'])
+                    ->name('home-banner.edit');
+
+                Route::post('/update/{id}', [AdminHomeBannerController::class, 'update'])
+                    ->name('home-banner.update');
+
+                Route::get('/delete/{id}', [AdminHomeBannerController::class, 'delete'])
+                    ->name('home-banner.delete');
             });
 
 

@@ -57,7 +57,14 @@
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
-              <li  class="{{ request()->routeIs('admins.affiliate.clicks.*') ? 'active' : '' }}">
+              <li  class="{{ request()->routeIs('admins.home-banner.*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.home-banner.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-image"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Home Banner</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
+              <li  class="{{ request()->routeIs('admins.affiliate.clicks') ? 'active' : '' }}">
                   <a href="{{ route('admins.affiliate.clicks') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Affiliate Clicks</span>

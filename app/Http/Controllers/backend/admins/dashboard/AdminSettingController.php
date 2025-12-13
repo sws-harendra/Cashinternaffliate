@@ -50,6 +50,19 @@ class AdminSettingController extends Controller
             ]);
         }
 
+        // Referral Banner Upload
+        if ($request->hasFile('refer_banner')) {
+
+            $file = $request->file('refer_banner');
+            $name = 'refer_' . time() . '.' . $file->extension();
+            $file->move(public_path('uploads/referral'), $name);
+
+            Configuration::where('key', 'refer_banner')->update([
+                'value' => 'uploads/referral/' . $name
+            ]);
+        }
+
+
         return back()->with('success', 'Settings updated successfully');
     }
 }
