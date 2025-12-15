@@ -15,13 +15,15 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'admin' => AdminMiddleware::class,
-             'auth' => App\Http\Middleware\Authenticate::class,
+            'auth' => App\Http\Middleware\Authenticate::class,
+            'recruiter.can.post.job' => \App\Http\Middleware\RecruiterCanPostJob::class,
+
 
         ]);
-         $middleware->group('api', [
+        $middleware->group('api', [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-          
+
         ]);
 
     })

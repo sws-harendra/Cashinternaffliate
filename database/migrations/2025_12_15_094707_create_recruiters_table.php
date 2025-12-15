@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->string('password');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->boolean('profile_completed')->default(false);
+            $table->boolean('email_verified')->default(false);
+            $table->boolean('mobile_verified')->default(false);
             $table->timestamps();
         });
     }

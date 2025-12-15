@@ -6,18 +6,23 @@ use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\backend\admins\auth\AdminAuthController;
 use App\Http\Controllers\backend\admins\dashboard\AdminKycController;
 use App\Http\Controllers\backend\admins\dashboard\AdminClickController;
+use App\Http\Controllers\backend\recruiters\auth\RecruiterOtpController;
 use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
+use App\Http\Controllers\backend\recruiters\auth\RecruiterAuthController;
 use App\Http\Controllers\backend\admins\dashboard\AdminWithdrawController;
 use App\Http\Controllers\backend\admins\dashboard\AdminHomeBannerController;
 use App\Http\Controllers\backend\admins\dashboard\AdminUserActivityController;
 use App\Http\Controllers\backend\admins\dashboard\AdminPaymentMethodController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingVideoController;
+use App\Http\Controllers\backend\recruiters\dashboard\RecruiterProfileController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateCategoryController;
+use App\Http\Controllers\backend\recruiters\dashboard\RecruiterDashboardController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingSubCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateSubCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminProductsEarningLevelController;
+use App\Http\Controllers\backend\recruiters\dashboard\RecruiterVerificationController;
 
 Route::get('/', function () {
     return view('backend.admins.pages.dashboard');
@@ -250,4 +255,53 @@ Route::group(
 
     }
 
+);
+
+Route::group(
+    ['prefix' => 'recruiters', 'as' => 'recruiters.'],
+    function () {
+
+        // Route::get('/', function () {
+        //     return view('backend.recruiters.pages.dashboard');
+        // })->name('index');
+    
+
+        Route::get('register', [RecruiterAuthController::class, 'showRegister'])->name('show.register');
+        Route::post('register', [RecruiterAuthController::class, 'register'])->name('register');
+
+        Route::get('login', [RecruiterAuthController::class, 'showLogin'])->name('show.login');
+        Route::post('login', [RecruiterAuthController::class, 'login'])->name('login.submit');
+        Route::get('verify-otp', [RecruiterOtpController::class, 'show'])
+            ->name('otp.form');
+
+        Route::post('verify-otp', [RecruiterOtpController::class, 'verify'])
+            ->name('otp.verify');
+        Route::get('resend-otp', [RecruiterOtpController::class, 'resend'])
+            ->name('otp.resend');
+
+
+        Route::middleware('auth:recruiter')->group(function () {
+
+            Route::get('verification', [RecruiterVerificationController::class, 'index']);
+            Route::post('verification', [RecruiterVerificationController::class, 'store']);
+
+            Route::get('dashboard', [RecruiterDashboardController::class, 'index'])->name('dashboard');
+
+            Route::get('profile', [RecruiterProfileController::class, 'edit']);
+            Route::post('profile', [RecruiterProfileController::class, 'update']);
+
+            Route::post('logout', [RecruiterAuthController::class, 'logout']);
+
+            // Route::middleware(['auth:recruiter', 'recruiter.can.post.job'])->group(function () {
+    
+            //     Route::get('jobs/create', [RecruiterJobController::class, 'create'])
+            //         ->name('recruiter.jobs.create');
+    
+            //     Route::post('jobs/store', [RecruiterJobController::class, 'store'])
+            //         ->name('recruiter.jobs.store');
+            // });
+    
+        });
+
+    }
 );
