@@ -6,8 +6,9 @@ use App\Models\User;
 use App\Models\Wallet;
 use App\Models\UserEarning;
 use App\Models\ProductClick;
-use App\Models\WalletTransaction;
 use Illuminate\Http\Request;
+use App\Models\WalletTransaction;
+use App\Services\ReferralService;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductEarningLevel;
 use App\Http\Controllers\Controller;
@@ -153,18 +154,15 @@ class AdminClickController extends Controller
 
             $total = $earnings->sum('amount');
 
-            // 1. Approve all holding earnings
             foreach ($earnings as $e) {
                 $e->update(['status' => 'approved']);
             }
 
-            // 2. Move money hold → balance
             $wallet->hold_balance -= $total;
             $wallet->balance += $total;
             $wallet->collection += $total;
             $wallet->save();
 
-            // 3. Add Transaction Log
             WalletTransaction::create([
                 'wallet_id' => $wallet->id,
                 'user_id' => $wallet->uuid,
@@ -174,13 +172,19 @@ class AdminClickController extends Controller
                 'description' => "Final Conversion - Amount Released"
             ]);
 
-            // 4. Mark Click Converted
+            // 🔥 REFERRAL CREDIT HERE
+            $user = User::where('uuid', $click->user_id)->first();
+            if ($user) {
+                ReferralService::credit($user, $total);
+            }
+
             $click->update([
                 'is_converted' => true,
                 'status' => 3,
                 'converted_at' => now()
             ]);
         });
+
 
         return redirect()->route('admins.affiliate.clicks')
             ->with('success', 'Final Conversion Completed. Amount Released to Wallet.');

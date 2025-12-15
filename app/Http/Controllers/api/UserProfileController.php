@@ -47,6 +47,11 @@ class UserProfileController extends Controller
         $user->pincode = $request->pincode ?? $user->pincode;
         $user->dob = $request->dob ?? $user->dob;
 
+        if(!$user->referred_by) {
+            $user->referred_by = $request->referred_by;
+        }
+        // $user->referred_by = $request->referred_by ?? $user->referred_by;
+
         $user->save();
 
         return response()->json([

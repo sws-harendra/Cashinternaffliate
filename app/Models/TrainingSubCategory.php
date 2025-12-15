@@ -13,4 +13,10 @@ class TrainingSubCategory extends Model
     {
         return $this->belongsTo(TrainingCategory::class, 'category_id');
     }
+
+     public function videos()
+    {
+        return $this->hasMany(TrainingVideo::class, 'sub_category_id')
+            ->where('status', 1);
+    }
 }

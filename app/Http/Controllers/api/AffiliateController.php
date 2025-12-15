@@ -25,6 +25,7 @@ class AffiliateController extends Controller
         // Products query
         $productsQuery = AffiliateProduct::with([
             'subcategory:id,name',
+            'benefits',
             'earningLevels:id,affiliate_product_id,level_name,level_description,amount,level_order'
         ])
             ->where('category_id', $categoryId)
@@ -47,6 +48,15 @@ class AffiliateController extends Controller
                     'id' => $product->subcategory->id ?? null,
                     'name' => $product->subcategory->name ?? null,
                 ],
+
+                // BENEFITS
+                'benefits' => $product->benefits->map(function ($benefit) {
+                    return [
+                        'id' => $benefit->id,
+                        'title' => $benefit->benefit_title,
+                    
+                    ];
+                }),
 
                 // ALL LEVELS
                 'earning_levels' => $product->earningLevels->map(function ($level) {
