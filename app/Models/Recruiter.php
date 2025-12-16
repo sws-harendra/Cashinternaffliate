@@ -21,10 +21,27 @@ class Recruiter extends Authenticatable
         'status',
         'is_email_verified',
         'is_mobile_verified',
+        'is_active',
 
     ];
 
     protected $hidden = [
         'password',
     ];
+
+    protected $casts = [
+        'is_email_verified' => 'boolean',
+        'is_mobile_verified' => 'boolean',
+        'is_active' => 'boolean',
+    ];
+
+    public function profile()
+    {
+        return $this->hasOne(RecruiterProfile::class);
+    }
+
+    public function verification()
+    {
+        return $this->hasOne(RecruiterVerification::class);
+    }
 }

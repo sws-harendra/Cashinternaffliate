@@ -15,20 +15,23 @@ class RecruiterCanPostJob
      */
     public function handle(Request $request, Closure $next): Response
     {
-       $recruiter = auth('recruiter')->user();
+        $recruiter = auth('recruiter')->user();
 
-        // Safety check
         if (!$recruiter) {
-            return redirect()->route('recruiters.login');
+            return redirect()->route('recruiters.show.login');
         }
 
-        //Admin not approved
-        if ($recruiter->status !== 'approved') {
+        $verification = $recruiter->verification;
+
+        // ❌ Document not uploaded OR not approved
+        if (!$verification || $verification->status !== 'approved') {
             return redirect()
                 ->route('recruiters.dashboard')
-                ->with('error', 'Admin verification pending. You cannot post jobs yet.');
+                ->with(
+                    'error',
+                    'Please complete document verification to post jobs.'
+                );
         }
-
         return $next($request);
     }
 }

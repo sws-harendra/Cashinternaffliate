@@ -6,12 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class RecruiterVerification extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'recruiter_id',
         'document_type',
         'document_file',
         'status',
-        'admin_remark'
+        'admin_remark',
+        'verified_at',
+    ];
+
+    protected $casts = [
+        'verified_at' => 'datetime',
     ];
 
     public function recruiter()

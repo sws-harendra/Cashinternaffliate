@@ -15,7 +15,7 @@ class ReferralService
         if (!$referrer) return;
 
         $CAP = 1000;
-        $RATE = 0.05;
+        $RATE = config_value('referral_bonus');
 
         $referral = ReferralEarning::firstOrCreate(
             ['referrer_user_id' => $referrer->uuid],
@@ -25,7 +25,7 @@ class ReferralService
         $remaining = $CAP - $referral->total_earned;
         if ($remaining <= 0) return;
 
-        $commission = $earningAmount * $RATE;
+        $commission = $earningAmount * $RATE/100;
         $finalCommission = min($commission, $remaining);
 
         $wallet = Wallet::where('uuid', $referrer->uuid)->first();

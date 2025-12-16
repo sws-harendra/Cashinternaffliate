@@ -120,6 +120,18 @@
                       <span class="pcoded-mtext">User Activity</span>
                   </a>
               </li>
+              <li class="{{ request()->routeIs('admins.recruiters*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.recruiters.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">Recruiters</span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('admins.recruiter.verifications*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.recruiter.verifications') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">Recruiter Verifications</span>
+                  </a>
+              </li>
 
 
 

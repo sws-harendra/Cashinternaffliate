@@ -3,7 +3,7 @@
       <div class="pcoded-inner-navbar main-menu">
           <div class="">
               <div class="main-menu-header">
-                  <img class="img-80 img-radius" src="{{ asset(config_value('company_logo')) }}" alt="User-Profile-Image">
+                  <img class="img-80 img-radius" src="{{ asset(auth('recruiter')->user()->profile->logo ?? 'backend/assets/images/avatar-4.jpg') }}" alt="User-Profile-Image">
                   <div class="user-details">
                       <span id="more-details">Recruiter<i class="fa fa-caret-down"></i></span>
                   </div>
@@ -22,10 +22,24 @@
 
           <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Layout</div>
           <ul class="pcoded-item pcoded-left-item">
-              <li class="{{ request()->routeIs('admins.dashboard') ? 'active' : '' }}">
-                  <a href="{{ route('admins.dashboard') }}" class="waves-effect waves-dark">
+              <li class="{{ request()->routeIs('recruiters.dashboard') ? 'active' : '' }}">
+                  <a href="{{ route('recruiters.dashboard') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('recruiters.profile.edit') ? 'active' : '' }}">
+                  <a href="{{ route('recruiters.profile.edit') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Profile</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('recruiters.verification') ? 'active' : '' }}">
+                  <a href="{{ route('recruiters.verification') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Verification</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>

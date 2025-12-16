@@ -72,7 +72,7 @@
                   </li>
                   <li class="user-profile header-notification">
                       <a href="#!" class="waves-effect waves-light">
-                          <img src="{{ asset('backend/assets/images/avatar-4.jpg') }}" class="img-radius"
+                          <img src="{{ asset(auth('recruiter')->user()->profile->logo ?? 'backend/assets/images/avatar-4.jpg') }}" class="img-radius"
                               alt="User-Profile-Image">
                           <span>Admins</span>
                           <i class="ti-angle-down"></i>
@@ -99,7 +99,7 @@
                                       </a>
                                   </li> --}}
                           <li class="waves-effect waves-light">
-                              <a href="#">
+                              <a href="{{ route('recruiters.logout') }}">
                                   <i class="ti-layout-sidebar-left"></i> Logout
                               </a>
                           </li>

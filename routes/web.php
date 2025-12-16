@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\backend\recruiters\auth\RecruiterResetPasswordController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\backend\admins\auth\AdminAuthController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\backend\recruiters\auth\RecruiterOtpController;
 use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
 use App\Http\Controllers\backend\recruiters\auth\RecruiterAuthController;
 use App\Http\Controllers\backend\admins\dashboard\AdminWithdrawController;
+use App\Http\Controllers\backend\admins\dashboard\AdminRecruiterController;
 use App\Http\Controllers\backend\admins\dashboard\AdminHomeBannerController;
 use App\Http\Controllers\backend\admins\dashboard\AdminUserActivityController;
 use App\Http\Controllers\backend\admins\dashboard\AdminPaymentMethodController;
@@ -18,11 +20,13 @@ use App\Http\Controllers\backend\recruiters\dashboard\RecruiterProfileController
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateCategoryController;
+use App\Http\Controllers\backend\recruiters\auth\RecruiterForgotPasswordController;
 use App\Http\Controllers\backend\recruiters\dashboard\RecruiterDashboardController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingSubCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateSubCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminProductsEarningLevelController;
 use App\Http\Controllers\backend\recruiters\dashboard\RecruiterVerificationController;
+use App\Http\Controllers\backend\admins\dashboard\AdminRecruiterVerificationController;
 
 Route::get('/', function () {
     return view('backend.admins.pages.dashboard');
@@ -249,6 +253,17 @@ Route::group(
 
             Route::get('/user-activities', [AdminUserActivityController::class, 'index'])->name('user.activities');
 
+            Route::get('recruiters', [AdminRecruiterController::class, 'index'])->name('recruiters.index');
+            Route::get('recruiters/{id}', [AdminRecruiterController::class, 'show'])->name('recruiters.show');
+            Route::post('recruiters/{id}/toggle-status', [AdminRecruiterController::class, 'toggleStatus'])->name('recruiters.toggle');
+
+            Route::get('/recruiter-verifications', [AdminRecruiterVerificationController::class, 'index'])->name('recruiter.verifications');
+            Route::get('recruiter-verifications/{id}', [AdminRecruiterVerificationController::class, 'show'])->name('recruiter.verifications.show');
+            Route::post('recruiter-verifications/{id}/approve', [AdminRecruiterVerificationController::class, 'approve'])->name('recruiter.verifications.approve');
+            Route::post('recruiter-verifications/{id}/reject', [AdminRecruiterVerificationController::class, 'reject'])->name('recruiter.verifications.reject');
+
+
+
 
 
         });
@@ -257,6 +272,11 @@ Route::group(
 
 );
 
+
+
+
+// Recruiter
+   Route::get(   'reset-password/{token}',   [RecruiterResetPasswordController::class, 'showResetForm'] )->name('password.reset');
 Route::group(
     ['prefix' => 'recruiters', 'as' => 'recruiters.'],
     function () {
@@ -279,18 +299,34 @@ Route::group(
         Route::get('resend-otp', [RecruiterOtpController::class, 'resend'])
             ->name('otp.resend');
 
+        Route::get('forgot-password',[RecruiterForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+
+        Route::post(  'forgot-password',  [RecruiterForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+     
+
+        Route::post('reset-password',    [RecruiterResetPasswordController::class, 'reset'])->name('password.update');
 
         Route::middleware('auth:recruiter')->group(function () {
 
-            Route::get('verification', [RecruiterVerificationController::class, 'index']);
-            Route::post('verification', [RecruiterVerificationController::class, 'store']);
 
             Route::get('dashboard', [RecruiterDashboardController::class, 'index'])->name('dashboard');
 
-            Route::get('profile', [RecruiterProfileController::class, 'edit']);
-            Route::post('profile', [RecruiterProfileController::class, 'update']);
+            // Profile
+            Route::get('profile', [RecruiterProfileController::class, 'edit'])
+                ->name('profile.edit');
 
-            Route::post('logout', [RecruiterAuthController::class, 'logout']);
+            Route::post('profile', [RecruiterProfileController::class, 'update'])
+                ->name('profile.update');
+
+            // Verification
+            Route::get('verification', [RecruiterVerificationController::class, 'index'])
+                ->name('verification');
+
+            Route::post('verification', [RecruiterVerificationController::class, 'store'])
+                ->name('verification.store');
+
+            Route::get('logout', [RecruiterAuthController::class, 'logout'])->name('logout');
 
             // Route::middleware(['auth:recruiter', 'recruiter.can.post.job'])->group(function () {
     

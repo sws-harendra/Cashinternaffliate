@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RecruiterProfile extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'recruiter_id',
         'logo',
         'company_description',
@@ -17,4 +17,9 @@ class RecruiterProfile extends Model
         'hr_name',
         'hr_contact'
     ];
+
+    public function recruiter()
+    {
+        return $this->belongsTo(Recruiter::class);
+    }
 }

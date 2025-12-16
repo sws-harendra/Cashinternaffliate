@@ -126,6 +126,12 @@ class RecruiterAuthController extends Controller
                 return back()->with('error', 'Please verify email and mobile first');
             }
 
+            if (!$user->is_active) {
+                Auth::guard('recruiter')->logout();
+                return back()->with('error', 'Your account has been deactivated by admin.');
+            }
+
+
             return redirect()->route('recruiters.dashboard');
         }
 
@@ -137,6 +143,6 @@ class RecruiterAuthController extends Controller
     public function logout()
     {
         Auth::guard('recruiter')->logout();
-        return redirect()->route('recruiter.login');
+        return redirect()->route('recruiters.show.login');
     }
 }

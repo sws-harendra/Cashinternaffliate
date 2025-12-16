@@ -29,12 +29,55 @@
             </div>
         </div>
 
-        @if (auth('recruiter')->user()->status !== 'approved')
-            <div class="alert alert-warning">
-                Your account is under admin verification.
-                You can browse the dashboard but job posting is disabled.
+        {{-- ================= VERIFICATION STATUS CARD ================= --}}
+
+        @php
+            $verification = auth('recruiter')->user()->verification;
+        @endphp
+
+        @if (!$verification)
+            {{-- NO DOCUMENT UPLOADED --}}
+            <div class="card border-left-warning">
+                <div class="card-block">
+                    <h5 class="text-warning">
+                        <i class="fa fa-warning"></i> Verification Required
+                    </h5>
+                    <p>
+                        Please upload your verification document to enable job posting.
+                    </p>
+                    <a href="{{ route('recruiters.verification') }}" class="btn btn-warning btn-sm">
+                        Upload Verification Document
+                    </a>
+                </div>
+            </div>
+        @else
+            {{-- DOCUMENT EXISTS --}}
+            <div class="card">
+                <div class="card-block">
+
+                    @if ($verification->status === 'pending')
+                        <div class="alert alert-warning">
+                            <strong>Verification Status:</strong> Pending Admin Review
+                        </div>
+                    @elseif($verification->status === 'approved')
+                        <div class="alert alert-success">
+                            <strong>Verification Status:</strong> Approved
+                        </div>
+                    @elseif($verification->status === 'rejected')
+                        <div class="alert alert-danger">
+                            <strong>Verification Rejected</strong><br>
+                            Reason: {{ $verification->admin_remark ?? 'N/A' }}
+                            <br><br>
+                            <a href="{{ route('recruiters.verification') }}" class="btn btn-danger btn-sm">
+                                Re-upload Document
+                            </a>
+                        </div>
+                    @endif
+
+                </div>
             </div>
         @endif
+
 
         <!-- Page-header end -->
         {{-- <div class="pcoded-inner-content">
