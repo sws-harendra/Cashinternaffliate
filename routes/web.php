@@ -15,6 +15,7 @@ use App\Http\Controllers\backend\recruiters\auth\RecruiterAuthController;
 use App\Http\Controllers\backend\admins\dashboard\AdminWithdrawController;
 use App\Http\Controllers\backend\admins\dashboard\AdminRecruiterController;
 use App\Http\Controllers\backend\admins\dashboard\AdminHomeBannerController;
+use App\Http\Controllers\backend\admins\dashboard\AdminJobApprovalController;
 use App\Http\Controllers\backend\admins\dashboard\AdminJobCategoryController;
 use App\Http\Controllers\backend\admins\dashboard\AdminJobLocationController;
 use App\Http\Controllers\backend\admins\dashboard\AdminSalaryRangeController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\backend\admins\dashboard\AdminUserActivityController;
 use App\Http\Controllers\backend\admins\dashboard\AdminPaymentMethodController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingVideoController;
 use App\Http\Controllers\backend\admins\dashboard\AdminExperienceLevelController;
+use App\Http\Controllers\backend\recruiters\dashboard\RecruiterJobPostController;
 use App\Http\Controllers\backend\recruiters\dashboard\RecruiterProfileController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingCategoryController;
@@ -279,6 +281,19 @@ Route::group(
             Route::resource('salary-ranges', AdminSalaryRangeController::class);
 
 
+            Route::get('jobs', [AdminJobApprovalController::class, 'index'])
+                ->name('jobs.index');
+
+            Route::get('jobs/{job}', [AdminJobApprovalController::class, 'show'])
+                ->name('jobs.show');
+
+            Route::post('jobs/{job}/approve', [AdminJobApprovalController::class, 'approve'])
+                ->name('jobs.approve');
+
+            Route::post('jobs/{job}/reject', [AdminJobApprovalController::class, 'reject'])
+                ->name('jobs.reject');
+
+
 
 
 
@@ -344,15 +359,10 @@ Route::group(
 
             Route::get('logout', [RecruiterAuthController::class, 'logout'])->name('logout');
 
-            // Route::middleware(['auth:recruiter', 'recruiter.can.post.job'])->group(function () {
-    
-            //     Route::get('jobs/create', [RecruiterJobController::class, 'create'])
-            //         ->name('recruiter.jobs.create');
-    
-            //     Route::post('jobs/store', [RecruiterJobController::class, 'store'])
-            //         ->name('recruiter.jobs.store');
-            // });
-    
+            Route::middleware(['recruiter.can.post.job'])->group(function () {
+                Route::resource('jobs', RecruiterJobPostController::class);
+            });
+
         });
 
     }

@@ -12,8 +12,8 @@
               <div class="main-menu-content">
                   <ul>
                       <li class="more-details">
-                          <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                          <a href="#!"><i class="ti-settings"></i>Settings</a>
+                          {{-- <a href="user-profile.html"><i class="ti-user"></i>View Profile</a> --}}
+                          <a href="{{ route('admins.settings') }}"><i class="ti-settings"></i>Settings</a>
                           <a href="{{ route('admins.logout') }}"><i class="ti-layout-sidebar-left"></i>Logout</a>
                       </li>
                   </ul>
@@ -168,6 +168,12 @@
                   <a href="{{ route('admins.salary-ranges.index') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-pulse"></i></span>
                       <span class="pcoded-mtext">Salary Ranges</span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('admins.jobs*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.jobs.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">Jobs Approval</span>
                   </a>
               </li>
 

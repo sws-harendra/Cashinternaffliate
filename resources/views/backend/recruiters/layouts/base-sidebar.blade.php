@@ -12,9 +12,9 @@
               <div class="main-menu-content">
                   <ul>
                       <li class="more-details">
-                          <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                          <a href="#!"><i class="ti-settings"></i>Settings</a>
-                          <a href="#"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                          <a href="{{ route('recruiters.profile.edit') }}"><i class="ti-user"></i>View Profile</a>
+                          {{-- <a href="#!"><i class="ti-settings"></i>Settings</a> --}}
+                          <a href="{{ route('recruiters.logout') }}"><i class="ti-layout-sidebar-left"></i>Logout</a>
                       </li>
                   </ul>
               </div>
@@ -40,6 +40,13 @@
                   <a href="{{ route('recruiters.verification') }}" class="waves-effect waves-dark">
                       <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Verification</span>
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('recruiters.jobs*') ? 'active' : '' }}">
+                  <a href="{{ route('recruiters.jobs.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Jobs</span>
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
