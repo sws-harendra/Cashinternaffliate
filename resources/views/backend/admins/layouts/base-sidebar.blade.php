@@ -133,6 +133,44 @@
                   </a>
               </li>
 
+            {{-- jobs --}}
+              <li class="{{ request()->routeIs('admins.job-categories*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.job-categories.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">Job Categories</span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('admins.job-roles*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.job-roles.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">Job Roles</span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('admins.job-locations*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.job-locations.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">Job Locations</span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('admins.job-types*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.job-types.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">Job Types</span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('admins.experience-levels*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.experience-levels.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">Experience Levels</span>
+                  </a>
+              </li>
+              <li class="{{ request()->routeIs('admins.salary-ranges*') ? 'active' : '' }}">
+                  <a href="{{ route('admins.salary-ranges.index') }}" class="waves-effect waves-dark">
+                      <span class="pcoded-micon"><i class="ti-pulse"></i></span>
+                      <span class="pcoded-mtext">Salary Ranges</span>
+                  </a>
+              </li>
+
 
 
               {{-- <li class="pcoded-hasmenu">

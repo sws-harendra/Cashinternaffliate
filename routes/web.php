@@ -1,24 +1,31 @@
 <?php
 
 
-use App\Http\Controllers\backend\recruiters\auth\RecruiterResetPasswordController;
+use App\Models\AffiliateSubCategory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\backend\admins\auth\AdminAuthController;
 use App\Http\Controllers\backend\admins\dashboard\AdminKycController;
 use App\Http\Controllers\backend\admins\dashboard\AdminClickController;
 use App\Http\Controllers\backend\recruiters\auth\RecruiterOtpController;
+use App\Http\Controllers\backend\admins\dashboard\AdminJobRoleController;
+use App\Http\Controllers\backend\admins\dashboard\AdminJobTypeController;
 use App\Http\Controllers\backend\admins\dashboard\AdminSettingController;
 use App\Http\Controllers\backend\recruiters\auth\RecruiterAuthController;
 use App\Http\Controllers\backend\admins\dashboard\AdminWithdrawController;
 use App\Http\Controllers\backend\admins\dashboard\AdminRecruiterController;
 use App\Http\Controllers\backend\admins\dashboard\AdminHomeBannerController;
+use App\Http\Controllers\backend\admins\dashboard\AdminJobCategoryController;
+use App\Http\Controllers\backend\admins\dashboard\AdminJobLocationController;
+use App\Http\Controllers\backend\admins\dashboard\AdminSalaryRangeController;
 use App\Http\Controllers\backend\admins\dashboard\AdminUserActivityController;
 use App\Http\Controllers\backend\admins\dashboard\AdminPaymentMethodController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingVideoController;
+use App\Http\Controllers\backend\admins\dashboard\AdminExperienceLevelController;
 use App\Http\Controllers\backend\recruiters\dashboard\RecruiterProfileController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateProductController;
 use App\Http\Controllers\backend\admins\dashboard\AdminTrainingCategoryController;
+use App\Http\Controllers\backend\recruiters\auth\RecruiterResetPasswordController;
 use App\Http\Controllers\backend\admins\dashboard\AdminAffiliateCategoryController;
 use App\Http\Controllers\backend\recruiters\auth\RecruiterForgotPasswordController;
 use App\Http\Controllers\backend\recruiters\dashboard\RecruiterDashboardController;
@@ -263,6 +270,15 @@ Route::group(
             Route::post('recruiter-verifications/{id}/reject', [AdminRecruiterVerificationController::class, 'reject'])->name('recruiter.verifications.reject');
 
 
+            Route::resource('job-categories', AdminJobCategoryController::class);
+            Route::resource('job-roles', AdminJobRoleController::class);
+            Route::resource('job-locations', AdminJobLocationController::class);
+
+            Route::resource('job-types', AdminJobTypeController::class);
+            Route::resource('experience-levels', AdminExperienceLevelController::class);
+            Route::resource('salary-ranges', AdminSalaryRangeController::class);
+
+
 
 
 
@@ -276,7 +292,7 @@ Route::group(
 
 
 // Recruiter
-   Route::get(   'reset-password/{token}',   [RecruiterResetPasswordController::class, 'showResetForm'] )->name('password.reset');
+Route::get('reset-password/{token}', [RecruiterResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::group(
     ['prefix' => 'recruiters', 'as' => 'recruiters.'],
     function () {
@@ -299,13 +315,13 @@ Route::group(
         Route::get('resend-otp', [RecruiterOtpController::class, 'resend'])
             ->name('otp.resend');
 
-        Route::get('forgot-password',[RecruiterForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+        Route::get('forgot-password', [RecruiterForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 
-        Route::post(  'forgot-password',  [RecruiterForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+        Route::post('forgot-password', [RecruiterForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
-     
 
-        Route::post('reset-password',    [RecruiterResetPasswordController::class, 'reset'])->name('password.update');
+
+        Route::post('reset-password', [RecruiterResetPasswordController::class, 'reset'])->name('password.update');
 
         Route::middleware('auth:recruiter')->group(function () {
 
