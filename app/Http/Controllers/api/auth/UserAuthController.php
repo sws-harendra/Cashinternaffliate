@@ -79,7 +79,7 @@ class UserAuthController extends Controller
             ['phone' => $request->phone],
             [
                 'uuid' => substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(4))), 0, 5),
-                'name' => null,
+                'name' => 'Guest',
                 'referral_code' => strtoupper(Str::random(8)),
                 'referred_by' => $request->referred_by ?? null,
                 'email' => null, // now nullable
