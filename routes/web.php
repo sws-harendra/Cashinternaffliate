@@ -38,7 +38,7 @@ use App\Http\Controllers\backend\recruiters\dashboard\RecruiterVerificationContr
 use App\Http\Controllers\backend\admins\dashboard\AdminRecruiterVerificationController;
 
 Route::get('/', function () {
-    return view('backend.admins.pages.dashboard');
+    return view('frontend.index');
 });
 
 
