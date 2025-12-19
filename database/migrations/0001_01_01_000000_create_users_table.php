@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('profile_image')->nullable();
             $table->string('referral_code')->unique();
             $table->string('referred_by')->nullable();
+         
             $table->rememberToken();
             $table->timestamps();
         });

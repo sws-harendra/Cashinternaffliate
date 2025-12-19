@@ -47,9 +47,22 @@ class UserProfileController extends Controller
         $user->pincode = $request->pincode ?? $user->pincode;
         $user->dob = $request->dob ?? $user->dob;
 
-        if(!$user->referred_by) {
+        if (!$user->referred_by) {
             $user->referred_by = $request->referred_by;
         }
+
+
+        // Auto check profile completion
+        $isCompleted =
+            !empty($user->name) &&
+            !empty($user->qualification) &&
+            !empty($user->address) &&
+            !empty($user->pincode) &&
+            !empty($user->dob) &&
+            !empty($user->profile_image);
+
+        $user->is_completed = $isCompleted;
+
         // $user->referred_by = $request->referred_by ?? $user->referred_by;
 
         $user->save();

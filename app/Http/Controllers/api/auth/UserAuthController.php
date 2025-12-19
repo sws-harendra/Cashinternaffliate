@@ -83,6 +83,8 @@ class UserAuthController extends Controller
                 'referral_code' => strtoupper(Str::random(8)),
                 'referred_by' => $request->referred_by ?? null,
                 'email' => null, // now nullable
+                
+                
             ]
         );
 
