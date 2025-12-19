@@ -75,7 +75,7 @@ class UserAuthController extends Controller
         }
 
         // User exist? else create
-        $user = User::firstOrCreate(
+        $users = User::firstOrCreate(
             ['phone' => $request->phone],
             [
                 'uuid' => substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(4))), 0, 5),
@@ -88,6 +88,7 @@ class UserAuthController extends Controller
             ]
         );
 
+        $user = User::where('phone', $request->phone)->first();
         // Mark OTP as verified
         DB::table('otp_verifications')
             ->where('mobile', $request->phone)
